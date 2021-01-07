@@ -28,5 +28,11 @@
       "dependsOn": [],
       "customAuth": false
     }
+  },
+  "storage": {
+    "testFiles": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

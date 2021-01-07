@@ -1,9 +1,16 @@
-import './App.css';
 import { DataStore } from '@aws-amplify/datastore';
 import { Locations } from './models';
-import { Auth } from 'aws-amplify';
+import Amplify, { Auth, Storage } from 'aws-amplify';
+import { useState } from 'react';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+
+import './App.css';
+
+Amplify.configure(awsconfig);
 
 function App() {
+  const [file, setFile] = useState(null);
 
   const addLocation = async () => {
     await DataStore.save(
@@ -28,6 +35,19 @@ function App() {
     }
   };
 
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  }
+
+  const uploadPhoto = (e) => {
+    Storage.put(`${file?.name}`, file, {
+        contentType: 'image/png'
+    })
+    .then (result => console.log(result))
+    .catch(err => console.log(err));
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -40,6 +60,15 @@ function App() {
         <input id="password" />
         <button onClick={signIn}>Sign In</button>
 
+        <label>file upload</label>
+        <input
+          type="file" 
+          accept='image/png'
+          onChange={(e) => onChange(e)}
+        />
+        <button onClick={uploadPhoto}>Upload Photo</button>
+        
+
         <br></br>
         <br></br>
         {/* <button onClick={addUser}>Save User</button> */}
@@ -50,4 +79,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
