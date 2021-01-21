@@ -1,6 +1,6 @@
 import { DataStore } from '@aws-amplify/datastore';
 import { Locations } from './models';
-import Amplify, { Auth, Storage } from 'aws-amplify';
+import Amplify, { Auth, Storage, API } from 'aws-amplify';
 import { useState } from 'react';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -11,11 +11,12 @@ Amplify.configure(awsconfig);
 
 function App() {
   const [file, setFile] = useState(null);
+  const [locations, setLocations] = useState([]);
 
   const addLocation = async () => {
     await DataStore.save(
       new Locations({
-        "name": "Chris Yates",
+        "name": "Chris Yates 3",
         "latitude": '12.1024',
         "longitude": "12.1970",
       })
@@ -47,6 +48,10 @@ function App() {
     .catch(err => console.log(err));
   }
 
+  const getTodos = async () => {
+    console.log('getTodos');
+    API.get('todosAPI', '/todos', {}).then(res => console.log(res)).catch(err => console.log(err))
+  }
 
   return (
     <div className="App">
@@ -74,6 +79,10 @@ function App() {
         {/* <button onClick={addUser}>Save User</button> */}
         <button onClick={addLocation}>Save Location</button>
         {/* <button onClick={getUser}>Get User</button> */}
+        <br></br>
+        <br></br>
+        <button onClick={getTodos}>Get Todos</button>
+        {locations.length > 0 ? locations.map(location => <div>{location.name}</div>) : null}
       </header>
     </div>
   );

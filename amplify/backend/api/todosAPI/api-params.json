@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/todos",
+            "lambdaFunction": "todosLambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/todos"
+        }
+    ],
+    "resourceName": "todosAPI",
+    "apiName": "todosAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "todosLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-testamplify-staging-45654-authRole",
+        "unAuthRoleName": "amplify-testamplify-staging-45654-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "todosLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
