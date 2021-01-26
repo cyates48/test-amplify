@@ -1,7 +1,80 @@
 export const schema = {
     "models": {
-        "Locations": {
-            "name": "Locations",
+        "StylistInfo": {
+            "name": "StylistInfo",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "business": {
+                    "name": "business",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "location": {
+                    "name": "location",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "profession": {
+                    "name": "profession",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "StylistInfos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Service": {
+            "name": "Service",
             "fields": {
                 "id": {
                     "name": "id",
@@ -17,15 +90,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "latitude": {
-                    "name": "latitude",
+                "price": {
+                    "name": "price",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "longitude": {
-                    "name": "longitude",
+                "duration": {
+                    "name": "duration",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -33,7 +106,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Locations",
+            "pluralName": "Services",
             "attributes": [
                 {
                     "type": "model",
@@ -44,11 +117,20 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "public",
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
                                 "operations": [
+                                    "read",
                                     "create",
                                     "update",
-                                    "delete",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "allow": "private",
+                                "operations": [
                                     "read"
                                 ]
                             }
@@ -60,5 +142,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "06885af320eec9d29284c14b32c1b8d4"
+    "version": "c8aa6a13358eb3451cece24b387e71cd"
 };
